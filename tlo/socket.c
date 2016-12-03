@@ -7,6 +7,8 @@
 #include <unistd.h>
 
 struct addrinfo *tloGetBindableWildcardAddress(const char *portOrService) {
+  assert(portOrService);
+
   struct addrinfo hints;
   memset(&hints, 0, sizeof(hints));
   hints.ai_family = AF_UNSPEC;
@@ -25,6 +27,8 @@ struct addrinfo *tloGetBindableWildcardAddress(const char *portOrService) {
 }
 
 int tloGetSocketBoundToReusableAddress(struct addrinfo *addresses) {
+  assert(addresses);
+
   int socketfd;
   int errco = errno;
   bool succeeded = false;
@@ -67,6 +71,8 @@ int tloGetSocketBoundToReusableAddress(struct addrinfo *addresses) {
 }
 
 void *tloGetAddress(struct sockaddr *socket) {
+  assert(socket);
+
   if (socket->sa_family == AF_INET) {
     return &(((struct sockaddr_in *)socket)->sin_addr);
   }
@@ -79,6 +85,8 @@ void *tloGetAddress(struct sockaddr *socket) {
 }
 
 in_port_t tloGetPort(struct sockaddr *socket) {
+  assert(socket);
+
   if (socket->sa_family == AF_INET) {
     return ((struct sockaddr_in *)socket)->sin_port;
   }
