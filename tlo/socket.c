@@ -15,9 +15,9 @@ struct addrinfo *tloGetBindableWildcardAddress(const char *portOrService) {
 
   struct addrinfo *localAddressInfo;
 
-  int error = getaddrinfo(NULL, portOrService, &hints, &localAddressInfo);
-  if (error) {
-    fprintf(stderr, "tlochat socket: getaddrinfo: %s\n", gai_strerror(error));
+  int errco = getaddrinfo(NULL, portOrService, &hints, &localAddressInfo);
+  if (errco) {
+    fprintf(stderr, "tlochat socket: getaddrinfo: %s\n", gai_strerror(errco));
     return NULL;
   }
 
