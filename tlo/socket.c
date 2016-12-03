@@ -6,7 +6,7 @@
 #include <string.h>
 #include <unistd.h>
 
-struct addrinfo *tloGetLocalAddressInfo(const char *portOrService) {
+struct addrinfo *tloGetBindableWildcardAddress(const char *portOrService) {
   struct addrinfo hints;
   memset(&hints, 0, sizeof(hints));
   hints.ai_family = AF_UNSPEC;
@@ -24,12 +24,14 @@ struct addrinfo *tloGetLocalAddressInfo(const char *portOrService) {
   return localAddressInfo;
 }
 
-int tloGetSocketThenBind(struct addrinfo *infos) {
+int tloGetSocketBoundToReusableAddress(struct addrinfo *addresses) {
   int socketfd;
   bool succeeded = false;
 
-  for (struct addrinfo *info = infos; info != NULL; info = info->ai_next) {
-    socketfd = socket(info->ai_family, info->ai_socktype, info->ai_protocol);
+  for (struct addrinfo *address = addresses; address != NULL;
+       address = address->ai_next) {
+    socketfd =
+        socket(address->ai_family, address->ai_socktype, address->ai_protocol);
     if (socketfd == -1) {
       perror("tlochat socket: socket");
       continue;
@@ -44,7 +46,7 @@ int tloGetSocketThenBind(struct addrinfo *infos) {
       continue;
     }
 
-    error = bind(socketfd, info->ai_addr, info->ai_addrlen);
+    error = bind(socketfd, address->ai_addr, address->ai_addrlen);
     if (error) {
       close(socketfd);
       perror("tlochat socket: bind");

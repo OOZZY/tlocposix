@@ -7,14 +7,14 @@
 /*
  * - returns NULL on failure
  */
-struct addrinfo *tloGetLocalAddressInfo(const char *portOrService);
+struct addrinfo *tloGetBindableWildcardAddress(const char *portOrService);
 
 #define TLO_SOCKET_ERROR -1
 
 /*
  * - returns TLO_SOCKET_ERROR on failure
  */
-int tloGetSocketThenBind(struct addrinfo *infos);
+int tloGetSocketBoundToReusableAddress(struct addrinfo *addresses);
 
 void *tloGetAddress(struct sockaddr *socket);
 in_port_t tloGetPort(struct sockaddr *socket);
