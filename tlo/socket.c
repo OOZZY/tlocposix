@@ -1,8 +1,8 @@
 #include "tlo/socket.h"
 #include <assert.h>
+#include <errno.h>
 #include <netdb.h>
 #include <stdbool.h>
-#include <stdio.h>
 #include <string.h>
 #include <unistd.h>
 
@@ -17,7 +17,7 @@ struct addrinfo *tloGetBindableWildcardAddress(const char *portOrService) {
 
   int errco = getaddrinfo(NULL, portOrService, &hints, &localAddressInfo);
   if (errco) {
-    fprintf(stderr, "tlochat socket: getaddrinfo: %s\n", gai_strerror(errco));
+    errno = errco;
     return NULL;
   }
 
@@ -26,6 +26,7 @@ struct addrinfo *tloGetBindableWildcardAddress(const char *portOrService) {
 
 int tloGetSocketBoundToReusableAddress(struct addrinfo *addresses) {
   int socketfd;
+  int errco = errno;
   bool succeeded = false;
 
   for (struct addrinfo *address = addresses; address != NULL;
@@ -33,7 +34,7 @@ int tloGetSocketBoundToReusableAddress(struct addrinfo *addresses) {
     socketfd =
         socket(address->ai_family, address->ai_socktype, address->ai_protocol);
     if (socketfd == -1) {
-      perror("tlochat socket: socket");
+      errco = errno;
       continue;
     }
 
@@ -41,15 +42,15 @@ int tloGetSocketBoundToReusableAddress(struct addrinfo *addresses) {
     int error =
         setsockopt(socketfd, SOL_SOCKET, SO_REUSEADDR, &value, sizeof(value));
     if (error) {
+      errco = errno;
       close(socketfd);
-      perror("tlochat socket: setsockopt");
       continue;
     }
 
     error = bind(socketfd, address->ai_addr, address->ai_addrlen);
     if (error) {
+      errco = errno;
       close(socketfd);
-      perror("tlochat socket: bind");
       continue;
     }
 
@@ -60,6 +61,7 @@ int tloGetSocketBoundToReusableAddress(struct addrinfo *addresses) {
   if (succeeded) {
     return socketfd;
   } else {
+    errno = errco;
     return TLO_SOCKET_ERROR;
   }
 }
