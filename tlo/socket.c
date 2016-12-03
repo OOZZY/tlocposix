@@ -88,11 +88,11 @@ in_port_t tloGetPort(struct sockaddr *socket) {
   assert(socket);
 
   if (socket->sa_family == AF_INET) {
-    return ((struct sockaddr_in *)socket)->sin_port;
+    return ntohs(((struct sockaddr_in *)socket)->sin_port);
   }
 
   if (socket->sa_family == AF_INET6) {
-    return ((struct sockaddr_in6 *)socket)->sin6_port;
+    return ntohs(((struct sockaddr_in6 *)socket)->sin6_port);
   }
 
   assert(false);

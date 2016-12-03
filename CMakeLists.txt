@@ -26,3 +26,6 @@ set(CMAKE_C_FLAGS_DEBUG "${debug_flags}" CACHE STRING
 add_definitions(-D_POSIX_C_SOURCE=200809L)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 add_subdirectory(tlo)
+add_executable(tlocposix_test socket_test.c tlocposix_test.c)
+target_link_libraries(tlocposix_test tlocposix)
+add_test(tlocposix_test tlocposix_test)
