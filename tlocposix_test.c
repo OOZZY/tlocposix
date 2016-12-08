@@ -3,6 +3,7 @@
 
 int main(void) {
   testSocket();
+  testThread();
   puts("=================");
   puts("All tests passed.");
   puts("=================");
