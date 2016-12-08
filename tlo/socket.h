@@ -2,6 +2,7 @@
 #define TLO_SOCKET_H
 
 #include <netinet/in.h>
+#include <stdio.h>
 #include <sys/socket.h>
 
 /*
@@ -18,5 +19,7 @@ int tloGetSocketBoundToReusableAddress(struct addrinfo *addresses);
 
 void *tloGetAddress(struct sockaddr *socket);
 in_port_t tloGetPort(struct sockaddr *socket);
+void tloFPrintAddressInformation(FILE *file, struct addrinfo *addresses);
+void tloPrintAddressInformation(struct addrinfo *addresses);
 
 #endif  // TLO_SOCKET_H

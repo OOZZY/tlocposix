@@ -10,14 +10,7 @@
 static void testGetBindableWildcardAddress(void) {
   struct addrinfo *addresses = tloGetBindableWildcardAddress(SOME_PORT_STR);
   assert(addresses);
-
-  for (struct addrinfo *address = addresses; address != NULL;
-       address = address->ai_next) {
-    printf("%s|%u\n", tloGetAddress(address->ai_addr),
-           tloGetPort(address->ai_addr));
-    assert(tloGetPort(address->ai_addr) == SOME_PORT_INT);
-  }
-
+  tloPrintAddressInformation(addresses);
   freeaddrinfo(addresses);
 }
 

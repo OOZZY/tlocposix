@@ -1,4 +1,5 @@
 #include "tlo/socket.h"
+#include <arpa/inet.h>
 #include <assert.h>
 #include <errno.h>
 #include <netdb.h>
@@ -96,4 +97,28 @@ in_port_t tloGetPort(struct sockaddr *socket) {
   }
 
   assert(false);
+}
+
+void tloFPrintAddressInformation(FILE *file, struct addrinfo *addresses) {
+  assert(file);
+  assert(addresses);
+
+  for (struct addrinfo *address = addresses; address != NULL;
+       address = address->ai_next) {
+    char addressString[INET6_ADDRSTRLEN];
+    const char *result =
+        inet_ntop(address->ai_family, tloGetAddress(address->ai_addr),
+                  addressString, INET6_ADDRSTRLEN);
+    assert(result);
+
+    in_port_t port = tloGetPort(address->ai_addr);
+
+    fprintf(file, "%s|%u\n", addressString, port);
+  }
+}
+
+void tloPrintAddressInformation(struct addrinfo *addresses) {
+  assert(addresses);
+
+  tloFPrintAddressInformation(stdout, addresses);
 }
