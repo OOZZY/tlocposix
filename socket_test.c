@@ -1,7 +1,7 @@
-#include <assert.h>
 #include <netdb.h>
 #include <stdio.h>
 #include <tlo/socket.h>
+#include <tlo/test.h>
 #include "tlocposix_test.h"
 
 #define SOME_PORT_STR "12345"
@@ -9,7 +9,7 @@
 
 static void testGetBindableWildcardAddress(void) {
   struct addrinfo *addresses = tloGetBindableWildcardAddress(SOME_PORT_STR);
-  assert(addresses);
+  TLO_ASSERT(addresses);
   tloPrintAddressInformation(addresses);
   freeaddrinfo(addresses);
 }
@@ -17,7 +17,7 @@ static void testGetBindableWildcardAddress(void) {
 static void testGetSocketBoundToReusableAddress(void) {
   struct addrinfo *addresses = tloGetBindableWildcardAddress(SOME_PORT_STR);
   int socketfd = tloGetSocketBoundToReusableAddress(addresses);
-  assert(socketfd != TLO_SOCKET_ERROR);
+  TLO_ASSERT(socketfd != TLO_SOCKET_ERROR);
   freeaddrinfo(addresses);
 }
 
@@ -25,7 +25,7 @@ void testSocket(void) {
   testGetBindableWildcardAddress();
   testGetSocketBoundToReusableAddress();
 
-  puts("====================");
-  puts("Socket tests passed.");
-  puts("====================");
+  puts("==================");
+  puts("Socket tests done.");
+  puts("==================");
 }

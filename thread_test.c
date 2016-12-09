@@ -1,5 +1,5 @@
-#include <assert.h>
 #include <stdio.h>
+#include <tlo/test.h>
 #include <tlo/thread.h>
 #include "tlocposix_test.h"
 
@@ -23,7 +23,7 @@ static void testCreateAndCancelThreads(void) {
   pthread_t threads[NUM_THREADS];
   int error =
       tloCreateThreads(threads, NUM_THREADS, sleepForOneHour, TLO_NO_ARGUMENT);
-  assert(!error);
+  TLO_ASSERT(!error);
   tloCancelThreads(threads, NUM_THREADS);
 }
 
@@ -36,7 +36,7 @@ static void testCreateAndJoinThreads(void) {
   pthread_t threads[NUM_THREADS];
   int error =
       tloCreateThreads(threads, NUM_THREADS, doNothing, TLO_NO_ARGUMENT);
-  assert(!error);
+  TLO_ASSERT(!error);
   tloJoinThreads(threads, NUM_THREADS);
 }
 
@@ -44,7 +44,7 @@ void testThread(void) {
   testCreateAndCancelThreads();
   testCreateAndJoinThreads();
 
-  puts("====================");
-  puts("Thread tests passed.");
-  puts("====================");
+  puts("==================");
+  puts("Thread tests done.");
+  puts("==================");
 }
