@@ -83,6 +83,7 @@ void *tloGetAddress(struct sockaddr *socket) {
   }
 
   assert(false);
+  return NULL;
 }
 
 in_port_t tloGetPort(struct sockaddr *socket) {
@@ -97,6 +98,7 @@ in_port_t tloGetPort(struct sockaddr *socket) {
   }
 
   assert(false);
+  return TLO_SOCKET_ERROR;
 }
 
 void tloFPrintAddressInformation(FILE *file, struct addrinfo *addresses) {
@@ -110,6 +112,7 @@ void tloFPrintAddressInformation(FILE *file, struct addrinfo *addresses) {
         inet_ntop(address->ai_family, tloGetAddress(address->ai_addr),
                   addressString, INET6_ADDRSTRLEN);
     assert(result);
+    (void)result;
 
     in_port_t port = tloGetPort(address->ai_addr);
 

@@ -42,5 +42,6 @@ void tloJoinThreads(pthread_t *threads, int numThreads) {
   for (int i = 0; i < numThreads; ++i) {
     int errco = pthread_join(threads[i], IGNORE_OUT_ARG);
     assert(!errco);
+    (void)errco;
   }
 }
