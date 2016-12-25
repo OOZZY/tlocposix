@@ -10,6 +10,7 @@
 static void testGetBindableWildcardAddress(void) {
   struct addrinfo *addresses = tloGetBindableWildcardAddress(SOME_PORT_STR);
   TLO_ASSERT(addresses);
+  TLO_EXPECT(tloGetPort(addresses->ai_addr) == SOME_PORT_INT);
   tloPrintAddressInformation(addresses);
   freeaddrinfo(addresses);
 }

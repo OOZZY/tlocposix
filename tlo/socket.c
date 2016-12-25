@@ -30,7 +30,7 @@ struct addrinfo *tloGetBindableWildcardAddress(const char *portOrService) {
 int tloGetSocketBoundToReusableAddress(struct addrinfo *addresses) {
   assert(addresses);
 
-  int socketfd;
+  int socketfd = -1;
   int errco = errno;
   bool succeeded = false;
 
@@ -98,7 +98,7 @@ in_port_t tloGetPort(struct sockaddr *socket) {
   }
 
   assert(false);
-  return TLO_SOCKET_ERROR;
+  return 0;
 }
 
 void tloFPrintAddressInformation(FILE *file, struct addrinfo *addresses) {
