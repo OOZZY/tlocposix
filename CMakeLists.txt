@@ -1,12 +1,17 @@
 project("tlocposix")
 cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
 set(CMAKE_LEGACY_CYGWIN_WIN32 0)
+enable_testing()
+
+# - pthreads required
+# - see https://cmake.org/cmake/help/v3.6/module/FindThreads.html
 set(CMAKE_THREAD_PREFER_PTHREAD ON)
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)
+
+# - tloc required
 add_subdirectory(tloc)
 include_directories(tloc)
-enable_testing()
 
 if ("${CMAKE_C_COMPILER_ID}" STREQUAL "GNU" OR
     "${CMAKE_C_COMPILER_ID}" STREQUAL "Clang")
