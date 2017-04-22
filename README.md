@@ -1,4 +1,14 @@
-# Clone, Build, and Test
+# tlocposix
+
+A C library.
+
+## Build Requirements
+
+* CMake
+* C11 development environment for which CMake can generate build files
+* Unix-like environment (Linux, FreeBSD, Cygwin, etc.)
+
+## Clone, Build, and Test
 
 ```
 $ git clone --recursive <url/to/tlocposix.git> # clone into tlocposix directory
