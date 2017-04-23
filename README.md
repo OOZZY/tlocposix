@@ -11,7 +11,7 @@ A C library.
 ## Clone, Build, and Test
 
 ```
-$ git clone --recursive <url/to/tlocposix.git> # clone into tlocposix directory
+$ git clone --branch develop --recursive <url/to/tlocposix.git> # clone into tlocposix directory
 $ mkdir tlocposixbuild
 $ cd tlocposixbuild
 $ cmake -G 'Unix Makefiles' -DCMAKE_BUILD_TYPE=Debug ../tlocposix
