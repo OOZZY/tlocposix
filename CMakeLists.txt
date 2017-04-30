@@ -1,6 +1,5 @@
-project("tlocposix")
 cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
-set(CMAKE_LEGACY_CYGWIN_WIN32 0)
+project("tlocposix")
 enable_testing()
 
 # - pthreads required
