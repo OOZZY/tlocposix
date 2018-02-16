@@ -1,6 +1,6 @@
-add_custom_target(tlocposix_test_headers SOURCES tlocposix_test.h)
-
-add_executable(tlocposix_test socket_test.c thread_test.c tlocposix_test.c)
+set(tlocposix_test_headers tlocposix_test.h)
+set(tlocposix_test_sources socket_test.c thread_test.c tlocposix_test.c)
+add_executable(tlocposix_test ${tlocposix_test_headers} ${tlocposix_test_sources})
 target_include_directories(tlocposix_test PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries(tlocposix_test PRIVATE tloc tlocposix)
 

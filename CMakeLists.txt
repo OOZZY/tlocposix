@@ -31,6 +31,5 @@ set(CMAKE_C_FLAGS "${flags}" CACHE STRING
 set(CMAKE_C_FLAGS_DEBUG "${debug_flags}" CACHE STRING
     "Flags used by the compiler during debug builds." FORCE)
 
-add_subdirectory(include/tlo)
 add_subdirectory(src)
 add_subdirectory(test)
