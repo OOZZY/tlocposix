@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.10 FATAL_ERROR)
 project("tlocposix")
 enable_testing()
 
@@ -10,7 +10,6 @@ find_package(Threads REQUIRED)
 
 # - tloc required
 add_subdirectory(tloc)
-include_directories(tloc)
 
 if ("${CMAKE_C_COMPILER_ID}" STREQUAL "GNU" OR
     "${CMAKE_C_COMPILER_ID}" STREQUAL "Clang")
@@ -32,9 +31,6 @@ set(CMAKE_C_FLAGS "${flags}" CACHE STRING
 set(CMAKE_C_FLAGS_DEBUG "${debug_flags}" CACHE STRING
     "Flags used by the compiler during debug builds." FORCE)
 
-add_definitions(-D_POSIX_C_SOURCE=200809L)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR})
-add_subdirectory(tlo)
-add_executable(tlocposix_test socket_test.c thread_test.c tlocposix_test.c)
-target_link_libraries(tlocposix_test tloc tlocposix)
-add_test(tlocposix_test tlocposix_test)
+add_subdirectory(include/tlo)
+add_subdirectory(src)
+add_subdirectory(test)
