@@ -14,6 +14,10 @@ if ("${CMAKE_C_COMPILER_ID}" STREQUAL "GNU" OR
     set(sanitizer_compile_options -fsanitize=memory -fsanitize=undefined -O1 -fno-omit-frame-pointer -fno-optimize-sibling-calls)
     set(sanitizer_link_options -fsanitize=memory)
   endif()
+
+  if ("${CMAKE_C_COMPILER_ID}" STREQUAL "Clang")
+    set(clang_compile_options -Wno-cast-align)
+  endif()
 endif()
 
 set(tlocposix_headers socket.h thread.h)
@@ -22,7 +26,7 @@ prepend(tlocposix_headers ${PROJECT_SOURCE_DIR}/include/tlo/ ${tlocposix_headers
 add_library(tlocposix STATIC ${tlocposix_headers} ${tlocposix_sources})
 set_target_properties(tlocposix PROPERTIES C_EXTENSIONS OFF)
 target_compile_features(tlocposix PUBLIC c_std_11)
-target_compile_options(tlocposix PRIVATE ${warning_compile_options} -Wno-cast-align PUBLIC ${sanitizer_compile_options})
+target_compile_options(tlocposix PRIVATE ${warning_compile_options} ${clang_compile_options} PUBLIC ${sanitizer_compile_options})
 target_include_directories(tlocposix PUBLIC ${PROJECT_SOURCE_DIR}/include)
 target_compile_definitions(tlocposix PUBLIC _POSIX_C_SOURCE=200809L)
 target_link_libraries(tlocposix PUBLIC Threads::Threads ${sanitizer_link_options})
