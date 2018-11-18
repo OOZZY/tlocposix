@@ -14,9 +14,10 @@ add_subdirectory(tloc)
 if ("${CMAKE_C_COMPILER_ID}" STREQUAL "GNU" OR
     "${CMAKE_C_COMPILER_ID}" STREQUAL "Clang")
   set(warning_compile_options -pedantic -Wall -Wextra -Werror)
-  if ("${CMAKE_C_COMPILER_ID}" STREQUAL "Clang")
-    set(warning_compile_options ${warning_compile_options} -Weverything)
-  endif()
+endif()
+
+if ("${CMAKE_C_COMPILER_ID}" STREQUAL "Clang")
+  set(warning_compile_options ${warning_compile_options} -Weverything)
 endif()
 
 add_subdirectory(src)

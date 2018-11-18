@@ -14,10 +14,10 @@ if ("${CMAKE_C_COMPILER_ID}" STREQUAL "GNU" OR
     set(sanitizer_compile_options -fsanitize=memory -fsanitize=undefined -O1 -fno-omit-frame-pointer -fno-optimize-sibling-calls)
     set(sanitizer_link_options -fsanitize=memory -fsanitize=undefined)
   endif()
+endif()
 
-  if ("${CMAKE_C_COMPILER_ID}" STREQUAL "Clang")
-    set(clang_compile_options -Wno-cast-align)
-  endif()
+if ("${CMAKE_C_COMPILER_ID}" STREQUAL "Clang")
+  set(clang_compile_options -Wno-cast-align)
 endif()
 
 set(tlocposix_headers socket.h thread.h)
